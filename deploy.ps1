@@ -19,9 +19,8 @@ function Fail ([string]$message) {
 }
 
 function Deploy {
-  if(-Not (Test-Path -Path $msDeploy)) {
-    Write-Error "MS Deploy V3 is not installed. Aborting!"
-    return -1
+  if(-Not (Test-Path -Path "$msDeploy.exe")) {
+    throw throw [System.InvalidOperationException] "MS Deploy V3 is not installed."
   }
 
   $serverUrl = "https://$server" + ":$port/MsDeploy.axd"

@@ -5,8 +5,8 @@ branches:
 skip_commits:
   message: /Updated.*\.(md)/
 
-install:
-  - ps: choco install webdeploy -y
+# install:
+#   - ps: choco install webdeploy -y
 
 environment:
   ARTIFACT_DESTINATION: out\Okta.OAuth.CodeFlow.zip
