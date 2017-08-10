@@ -1,9 +1,10 @@
 param (
   [string]$apiUrl = "https://ci.appveyor.com/api",
   [string]$accountName="hemantksingh",
-  [string]$downloadLocation = 'C:\project',
   [Parameter(mandatory=$true)]
   [string]$projectSlug,
+  [Parameter(mandatory=$true)]
+  [string]$destination,
   [Parameter(mandatory=$true)]
   [string]$apiToken
 )
@@ -29,12 +30,11 @@ $artifacts = Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifa
 $artifactFileName = $artifacts[1].fileName
 
 Write-Host "Artifact: $artifactFileName"
-# artifact will be downloaded as
-$localArtifactPath = "$downloadLocation\$artifactFileName"
 
 # download artifact
 # -OutFile - is local file name where artifact will be downloaded into
 # the Headers in this call should only contain the bearer token, and no Content-type, otherwise it will fail!
-Write-Host "Downloading '$artifactFileName' to '$localArtifactPath' ..."
+Write-Host "Downloading '$artifactFileName' to '$destination' ..."
 Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" `
--OutFile $localArtifactPath -Headers @{ "Authorization" = "Bearer $apiToken" }
+-OutFile $destination -Headers @{ "Authorization" = "Bearer $apiToken" }
+Write-Host "Download completed ..."
