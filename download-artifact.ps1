@@ -15,7 +15,9 @@ $headers = @{
 }
 
 # get project with last build details
-$project = Invoke-RestMethod -Method Get -Uri "$apiUrl/projects/$accountName/$projectSlug" -Headers $headers
+$project = Invoke-RestMethod -Method Get `
+  -Uri "$apiUrl/projects/$accountName/$projectSlug" `
+  -Headers $headers
 
 Write-Host "project: $project"
 # we assume here that build has a single job
@@ -24,7 +26,8 @@ $jobId = $project.build.jobs[0].jobId
 
 # get job artifacts (just to see what we've got)
 $artifacts = Invoke-RestMethod -Method Get `
-  -Uri "$apiUrl/buildjobs/$jobId/artifacts" -Headers $headers
+  -Uri "$apiUrl/buildjobs/$jobId/artifacts" `
+  -Headers $headers
 
 # here we just take the first artifact, but you could specify its file name
 # $artifactFileName = 'MyWebApp.zip'
@@ -34,7 +37,7 @@ Write-Host "Artifact: $artifactFileName"
 
 if(-Not (Test-Path -Path $destination)) {
   $dir = Split-Path -Path $destination
-  Write-Warning "'$dir' does not exist. Creating it"
+  Write-Warning "Directory '$dir' does not exist. Creating it"
   md -Force $dir
 }
 

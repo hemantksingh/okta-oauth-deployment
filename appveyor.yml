@@ -11,7 +11,7 @@ environment:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
 
 build_script:
-  - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination out\Okta.OAuth.CodeFlow.zip -apiToken env:API_TOKEN
+  - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination $env:ARTIFACT_DESTINATION -apiToken $env:API_TOKEN
 
 artifacts:
   - path: out\Okta.OAuth.CodeFlow.zip
