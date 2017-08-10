@@ -13,6 +13,10 @@ environment:
 build_script:
   - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination C:\projects\Okta.OAuth.CodeFlow.zip -apiToken env:API_TOKEN
 
+artifacts:
+  - path: C:\projects\Okta.OAuth.CodeFlow.zip
+    name: OktaOAuth
+
 deploy:
   - provider: WebDeploy
     server: "https://dev-pricing.westeurope.cloudapp.azure.com:8172/MsDeploy.axd"
@@ -26,4 +30,4 @@ deploy:
     do_not_use_checksum: true
     sync_retry_attempts: 2
     sync_retry_interval: 2000
-    artifact: C:\projects\Okta.OAuth.CodeFlow.zip
+    artifact: OktaOAuth
