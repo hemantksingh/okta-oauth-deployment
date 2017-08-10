@@ -5,7 +5,8 @@ branches:
 skip_commits:
   message: /Updated.*\.(md)/
 
-image: Visual Studio 2015
+build_script:
+  - ps: . ./download-artifcat.ps1 -project okta-oauth -apiToken env:API_TOKEN
 
 deploy:
   - provider: WebDeploy
@@ -20,4 +21,8 @@ deploy:
     do_not_use_checksum: true
     sync_retry_attempts: 2
     sync_retry_interval: 2000
-    artifact: Okta.OAuth.CodeFlow.zip
+    artifact: C:/projects/Okta.OAuth.CodeFlow.zip
+
+environment:
+  API_TOKEN:
+    secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
