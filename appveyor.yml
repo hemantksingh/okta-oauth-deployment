@@ -9,9 +9,10 @@ environment:
   ARTIFACT_DESTINATION: out\Okta.OAuth.CodeFlow.zip
   API_TOKEN:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
+  DEPLOY_PASS:
+    secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
 
 build_script:
-  - ps: '& C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy -help -verb'
   - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination $env:ARTIFACT_DESTINATION -apiToken $env:API_TOKEN
 
 # Specify the artifacts for this build, so that deploy can pick it up.
@@ -19,17 +20,20 @@ artifacts:
   - path: '%ARTIFACT_DESTINATION%'
     name: OktaOAuth
 
-deploy:
-  - provider: WebDeploy
-    server: "https://dev-pricing.westeurope.cloudapp.azure.com:8172/MsDeploy.axd"
-    website: OktaAuth
-    username: agent-deploy
-    password:
-      secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
-    ntlm: false
-    remove_files: false
-    app_offline: false
-    do_not_use_checksum: true
-    sync_retry_attempts: 2
-    sync_retry_interval: 2000
-    artifact: OktaOAuth
+# deploy:
+#   - provider: WebDeploy
+#     server: "https://dev-pricing.westeurope.cloudapp.azure.com:8172/MsDeploy.axd"
+#     website: OktaAuth
+#     username: agent-deploy
+#     password:
+#       secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
+#     ntlm: false
+#     remove_files: false
+#     app_offline: false
+#     do_not_use_checksum: true
+#     sync_retry_attempts: 2
+#     sync_retry_interval: 2000
+#     artifact: OktaOAuth
+
+deploy_script:
+  - ps: . .\deploy.ps1 -appName OktaOAuth -packageSource $env:ARTIFACT_DESTINATION -server dev-pricing.westeurope.cloudapp.azure.com -deployUser agent-deploy -deployPass $env.DEPLOY_PASS
