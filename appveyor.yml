@@ -21,7 +21,7 @@ deploy:
     do_not_use_checksum: true
     sync_retry_attempts: 2
     sync_retry_interval: 2000
-    artifact: %ARTIFACT_DESTINATION%
+    artifact: C:\projects\Okta.OAuth.CodeFlow.zip
 
 environment:
   ARTIFACT_DESTINATION: C:\projects\Okta.OAuth.CodeFlow.zip
