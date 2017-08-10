@@ -6,7 +6,7 @@ skip_commits:
   message: /Updated.*\.(md)/
 
 build_script:
-  - ps: . ./download-artifcat.ps1 -project okta-oauth -apiToken env:API_TOKEN
+  - ps: . ./download-artifact.ps1 -project okta-oauth -apiToken env:API_TOKEN
 
 deploy:
   - provider: WebDeploy
