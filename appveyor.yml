@@ -11,6 +11,7 @@ environment:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
 
 build_script:
+  - ps: & MSDeploy.exe -help -verb
   - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination $env:ARTIFACT_DESTINATION -apiToken $env:API_TOKEN
 
 # Specify the artifacts for this build, so that deploy can pick it up.
