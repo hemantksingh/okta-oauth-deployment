@@ -5,6 +5,9 @@ branches:
 skip_commits:
   message: /Updated.*\.(md)/
 
+install:
+  - ps: choco install webdeploy -y
+
 environment:
   ARTIFACT_DESTINATION: out\Okta.OAuth.CodeFlow.zip
   API_TOKEN:
@@ -13,7 +16,10 @@ environment:
     secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
 
 build_script:
-  - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination $env:ARTIFACT_DESTINATION -apiToken $env:API_TOKEN
+  - ps: . .\download-artifact.ps1
+            -projectSlug okta-oauth
+            -destination $env:ARTIFACT_DESTINATION
+            -apiToken $env:API_TOKEN
 
 # Specify the artifacts for this build, so that deploy can pick it up.
 artifacts:
