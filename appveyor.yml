@@ -36,4 +36,8 @@ artifacts:
 #     artifact: OktaOAuth
 
 deploy_script:
-  - ps: . .\deploy.ps1 -appName OktaOAuth -packageSource $env:ARTIFACT_DESTINATION -server dev-pricing.westeurope.cloudapp.azure.com -deployUser agent-deploy -deployPass $env.DEPLOY_PASS
+  - ps: . .\deploy.ps1 -appName OktaOAuth
+            -packageSource $env:ARTIFACT_DESTINATION
+            -server dev-pricing.westeurope.cloudapp.azure.com
+            -deployUser agent-deploy
+            -deployPass $env:DEPLOY_PASS
