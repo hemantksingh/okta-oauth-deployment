@@ -6,15 +6,15 @@ skip_commits:
   message: /Updated.*\.(md)/
 
 environment:
-  ARTIFACT_DESTINATION: C:\projects\Okta.OAuth.CodeFlow.zip
+  ARTIFACT_DESTINATION: out\Okta.OAuth.CodeFlow.zip
   API_TOKEN:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
 
 build_script:
-  - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination package\Okta.OAuth.CodeFlow.zip -apiToken env:API_TOKEN
+  - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination out\Okta.OAuth.CodeFlow.zip -apiToken env:API_TOKEN
 
 artifacts:
-  - path: package\Okta.OAuth.CodeFlow.zip
+  - path: out\Okta.OAuth.CodeFlow.zip
     name: OktaOAuth
 
 deploy:

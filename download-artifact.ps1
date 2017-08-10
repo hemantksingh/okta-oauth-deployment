@@ -23,7 +23,8 @@ Write-Host "project: $project"
 $jobId = $project.build.jobs[0].jobId
 
 # get job artifacts (just to see what we've got)
-$artifacts = Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts" -Headers $headers
+$artifacts = Invoke-RestMethod -Method Get `
+  -Uri "$apiUrl/buildjobs/$jobId/artifacts" -Headers $headers
 
 # here we just take the first artifact, but you could specify its file name
 # $artifactFileName = 'MyWebApp.zip'
@@ -31,10 +32,14 @@ $artifactFileName = $artifacts[1].fileName
 
 Write-Host "Artifact: $artifactFileName"
 
-# download artifact
-# -OutFile - is local file name where artifact will be downloaded into
-# the Headers in this call should only contain the bearer token, and no Content-type, otherwise it will fail!
+if(-Not (Test-Path -Path $destination)) {
+  $dir = Split-Path -Path $destination
+  Write-Warning "'$dir' does not exist. Creating it"
+  md -Force $dir
+}
+
 Write-Host "Downloading '$artifactFileName' to '$destination' ..."
-Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" `
--OutFile $destination -Headers @{ "Authorization" = "Bearer $apiToken" }
+Invoke-RestMethod -Method Get `
+  -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" `
+  -OutFile $destination -Headers @{ "Authorization" = "Bearer $apiToken" }
 Write-Host "Download completed ..."
