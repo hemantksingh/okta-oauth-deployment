@@ -14,7 +14,7 @@ build_script:
   - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination C:\projects\Okta.OAuth.CodeFlow.zip -apiToken env:API_TOKEN
 
 artifacts:
-  - path: C:\projects\Okta.OAuth.CodeFlow.zip
+  - path: ..\Okta.OAuth.CodeFlow.zip
     name: OktaOAuth
 
 deploy:
