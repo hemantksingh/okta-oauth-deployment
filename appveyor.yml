@@ -13,7 +13,7 @@ environment:
   API_TOKEN:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
   DEPLOY_PASS:
-    secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
+    secure: WeGA/eDEl6L8VvlD+VzqgiJI3WDrbmAzEGWIeaEDh7Q=
 
 build_script:
   - ps: . .\download-artifact.ps1
@@ -32,7 +32,7 @@ artifacts:
 #     website: OktaAuth
 #     username: agent-deploy
 #     password:
-#       secure: JgjViYedUd5IyB5V8dmwzPCt5qAAmxjM5fDd/ZZKAGc=
+#       secure: WeGA/eDEl6L8VvlD+VzqgiJI3WDrbmAzEGWIeaEDh7Q=
 #     ntlm: false
 #     remove_files: false
 #     app_offline: false
@@ -42,7 +42,8 @@ artifacts:
 #     artifact: OktaOAuth
 
 deploy_script:
-  - ps: . .\deploy.ps1 -appName OktaOAuth
+  - ps: .\deploy.ps1
+            -appName OktaOAuth
             -packageSource $env:ARTIFACT_DESTINATION
             -server dev-pricing.westeurope.cloudapp.azure.com
             -deployUser agent-deploy

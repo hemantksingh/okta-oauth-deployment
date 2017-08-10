@@ -33,8 +33,7 @@ function Deploy {
     "-setParam:name='IIS Web Application Name',value=$appName"
   )
 
-  Write-Host "Deploying to $serverUrl"
-  Write-Host "With arguments: $arguments"
+  Write-Host "Deploying '$packageSource' to $serverUrl"
 
   Start-Process $msDeploy -NoNewWindow -ArgumentList $arguments
 }
