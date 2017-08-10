@@ -13,8 +13,9 @@ environment:
 build_script:
   - ps: . .\download-artifact.ps1 -projectSlug okta-oauth -destination $env:ARTIFACT_DESTINATION -apiToken $env:API_TOKEN
 
+# Specify the artifacts for this build, so that deploy can pick it up.
 artifacts:
-  - path: out\Okta.OAuth.CodeFlow.zip
+  - path: '%ARTIFACT_DESTINATION%'
     name: OktaOAuth
 
 deploy:
