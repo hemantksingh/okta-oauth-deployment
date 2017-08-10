@@ -6,7 +6,7 @@ skip_commits:
   message: /Updated.*\.(md)/
 
 build_script:
-  - ps: . ./download-artifact.ps1 -project okta-oauth -apiToken env:API_TOKEN
+  - ps: . .\download-artifact.ps1 -project okta-oauth -apiToken env:API_TOKEN
 
 deploy:
   - provider: WebDeploy
@@ -21,7 +21,7 @@ deploy:
     do_not_use_checksum: true
     sync_retry_attempts: 2
     sync_retry_interval: 2000
-    artifact: C:/projects/Okta.OAuth.CodeFlow.zip
+    artifact: C:\project\Okta.OAuth.CodeFlow.zip
 
 environment:
   API_TOKEN:
