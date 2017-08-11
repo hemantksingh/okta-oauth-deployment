@@ -26,16 +26,16 @@ build_script:
             -destinationDir $env:ARTIFACT_DESTINATION
             -apiToken $env:API_TOKEN
 
-after_build:
-  - appveyor PushArtifact %ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT% -FileName %OKTAOAUTH_ARTIFACT% -DeploymentName OktaOAuth
-  - appveyor PushArtifact %ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT% -FileName %OKTAOAUTHAPI_ARTIFACT% -DeploymentName OktaOAuthApi
-# Specify the artifacts for this build, so that deploy can pick it up.
-# artifacts:
-#   - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT%'
-#     name: OktaOAuth
-#
-#   - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT%'
-#     name: OktaOAuthApi
+# Specify the artifacts to be uploaded for this build, so that deploy can pick up.
+# Specify zip artifact is Web Deploy package, not a regular zip archive
+artifacts:
+  - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT%'
+    name: OktaOAuth
+    type: WebDeployPackage
+
+  - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT%'
+    name: OktaOAuthApi
+    type: WebDeployPackage
 
 deploy:
   - provider: WebDeploy
