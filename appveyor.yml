@@ -51,7 +51,7 @@ deploy:
 
   - provider: WebDeploy
     server: "https://dev-pricing.westeurope.cloudapp.azure.com:8172/MsDeploy.axd"
-    website: OktaAuthApi
+    website: OktaOAuthApi
     username: agent-deploy
     password:
       secure: WeGA/eDEl6L8VvlD+VzqgiJI3WDrbmAzEGWIeaEDh7Q=

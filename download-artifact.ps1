@@ -22,9 +22,9 @@ $project = Invoke-RestMethod -Method Get `
   -Headers $headers
 
 $destination = "$destinationDir\$artifactName"
+$dir = Split-Path -Path $destination
 
-if(-Not (Test-Path -Path $destination)) {
-  $dir = Split-Path -Path $destination
+if(-Not (Test-Path -Path $dir)) {
   Write-Warning "Directory '$dir' does not exist. Creating it"
   md -Force $dir
 }
