@@ -4,7 +4,9 @@ param (
   [Parameter(mandatory=$true)]
   [string]$projectSlug,
   [Parameter(mandatory=$true)]
-  [string]$destination,
+  [string]$artifactName,
+  [Parameter(mandatory=$true)]
+  [string]$destinationDir,
   [Parameter(mandatory=$true)]
   [string]$apiToken
 )
@@ -19,30 +21,19 @@ $project = Invoke-RestMethod -Method Get `
   -Uri "$apiUrl/projects/$accountName/$projectSlug" `
   -Headers $headers
 
-Write-Host "project: $project"
-# we assume here that build has a single job
-# get this job id
-$jobId = $project.build.jobs[0].jobId
-
-# get job artifacts (just to see what we've got)
-$artifacts = Invoke-RestMethod -Method Get `
-  -Uri "$apiUrl/buildjobs/$jobId/artifacts" `
-  -Headers $headers
-
-# here we just take the first artifact, but you could specify its file name
-# $artifactFileName = 'MyWebApp.zip'
-$artifactFileName = $artifacts[1].fileName
-
-Write-Host "Artifact: $artifactFileName"
+$destination = "$destinationDir\$artifactName"
 
 if(-Not (Test-Path -Path $destination)) {
   $dir = Split-Path -Path $destination
   Write-Warning "Directory '$dir' does not exist. Creating it"
   md -Force $dir
 }
+# we assume here that build has a single job
+# get this job id
+$jobId = $project.build.jobs[0].jobId
 
-Write-Host "Downloading '$artifactFileName' to '$destination' ..."
+Write-Host "Downloading '$artifactName' to '$destination' ..."
 Invoke-RestMethod -Method Get `
-  -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" `
+  -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactName" `
   -OutFile $destination -Headers @{ "Authorization" = "Bearer $apiToken" }
-Write-Host "Download completed ..."
+Write-Host "Download completed!"

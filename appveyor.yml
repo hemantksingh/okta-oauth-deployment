@@ -6,7 +6,9 @@ skip_commits:
   message: /Updated.*\.(md)/
 
 environment:
-  ARTIFACT_DESTINATION: out\Okta.OAuth.CodeFlow.zip
+  ARTIFACT_DESTINATION: out
+  OKTAOAUTH_ARTIFACT: Okta.OAuth.CodeFlow.zip
+  OKTAOAUTHAPI_ARTIFACT: Api.zip
   API_TOKEN:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
   DEPLOY_PASS:
@@ -15,13 +17,22 @@ environment:
 build_script:
   - ps: . .\download-artifact.ps1
             -projectSlug okta-oauth
-            -destination $env:ARTIFACT_DESTINATION
+            -artifactName $env:OKTAOAUTH_ARTIFACT
+            -destinationDir $env:ARTIFACT_DESTINATION
+            -apiToken $env:API_TOKEN
+  - ps: . .\download-artifact.ps1
+            -projectSlug okta-oauth
+            -artifactName $env:OKTAOAUTHAPI_ARTIFACT
+            -destinationDir $env:ARTIFACT_DESTINATION
             -apiToken $env:API_TOKEN
 
 # Specify the artifacts for this build, so that deploy can pick it up.
 artifacts:
-  - path: '%ARTIFACT_DESTINATION%'
+  - path: '$env:ARTIFACT_DESTINATION\$env:OKTAOAUTH_ARTIFACT'
     name: OktaOAuth
+
+  - path: '$env:ARTIFACT_DESTINATION\$env:OKTAOAUTHAPI_ARTIFACT'
+    name: OktaOAuthApi
 
 deploy:
   - provider: WebDeploy
@@ -37,6 +48,20 @@ deploy:
     sync_retry_attempts: 2
     sync_retry_interval: 2000
     artifact: OktaOAuth
+
+  - provider: WebDeploy
+    server: "https://dev-pricing.westeurope.cloudapp.azure.com:8172/MsDeploy.axd"
+    website: OktaAuthApi
+    username: agent-deploy
+    password:
+      secure: WeGA/eDEl6L8VvlD+VzqgiJI3WDrbmAzEGWIeaEDh7Q=
+    ntlm: false
+    remove_files: false
+    app_offline: false
+    do_not_use_checksum: true
+    sync_retry_attempts: 2
+    sync_retry_interval: 2000
+    artifact: OktaOAuthApi
 
 # deploy_script:
 #   - ps: .\deploy.ps1
