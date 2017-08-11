@@ -27,8 +27,8 @@ build_script:
             -apiToken $env:API_TOKEN
 
 after_build:
-  - appveyor PushArtifact '%ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT%' -FileName %OKTAOAUTH_ARTIFACT%' -DeploymentName OktaOAuth
-  - appveyor PushArtifact '%ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT%' -FileName %OKTAOAUTHAPI_ARTIFACT%' -DeploymentName OktaOAuthApi
+  - appveyor PushArtifact %ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT% -FileName %OKTAOAUTH_ARTIFACT% -DeploymentName OktaOAuth
+  - appveyor PushArtifact %ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT% -FileName %OKTAOAUTHAPI_ARTIFACT% -DeploymentName OktaOAuthApi
 # Specify the artifacts for this build, so that deploy can pick it up.
 # artifacts:
 #   - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT%'
