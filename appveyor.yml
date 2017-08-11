@@ -28,10 +28,10 @@ build_script:
 
 # Specify the artifacts for this build, so that deploy can pick it up.
 artifacts:
-  - path: '$env:ARTIFACT_DESTINATION\$env:OKTAOAUTH_ARTIFACT'
+  - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTH_ARTIFACT%'
     name: OktaOAuth
 
-  - path: '$env:ARTIFACT_DESTINATION\$env:OKTAOAUTHAPI_ARTIFACT'
+  - path: '%ARTIFACT_DESTINATION%\%OKTAOAUTHAPI_ARTIFACT%'
     name: OktaOAuthApi
 
 deploy:
