@@ -8,7 +8,7 @@ skip_commits:
 environment:
   ARTIFACT_DESTINATION: out
   OKTAOAUTH_ARTIFACT: Okta.OAuth.CodeFlow.zip
-  OKTAOAUTHAPI_ARTIFACT: Api.zip
+  OKTAOAUTHAPI_ARTIFACT: Okta.OAuth.Api.zip
   API_TOKEN:
     secure: K+Xh6Wc8vsAuJqeqdlNKh8ie7E1prS/yJ3XFQyGuHI8=
   DEPLOY_PASS:
